@@ -33,6 +33,7 @@ class Service{
       ':lat' => $lat,
       ':lng' => $lng
     );
+    
     $result = $this->database->executeQuery($query,$values);
     if(!$result){
       return $uniqueId;

@@ -29,9 +29,11 @@ if (isset($_GET['timeZone'])) {
   $timeZone = new DateTimeZone($_GET['timeZone']);
 }
 
-// Read and parse our events JSON file into an array of event data arrays.
-$json = file_get_contents(dirname(__FILE__) . '/events.json');
-$input_arrays = json_decode($json, true);
+//
+//$input_arrays.
+//Get info from the db.
+
+
 
 // Accumulate an output array of event data arrays.
 $output_arrays = array();

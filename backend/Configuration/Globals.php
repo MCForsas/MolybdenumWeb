@@ -10,4 +10,8 @@
             'https://maxcdn.bootstrapcdn.com'
           )
   );
+  define('DATABASE_HOST','localhost');
+  define('DATABASE_NAME','Molybdenum');
+  define('DATABASE_USER','root');
+  define('DATABASE_PASSWORD','l7A6!PQsG0xCerm^R&q73d');
 ?>

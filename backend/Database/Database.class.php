@@ -4,15 +4,10 @@
 */
 class Database{
   
-   private $database;
-   private const DATABASE_HOST = 'localhost';
-   private const DATABASE_NAME = 'Molybdenum';
-   private const DATABASE_USER = 'root';
-   private const DATABASE_PASSWORD = 'l7A6!PQsG0xCerm^R&q73d'; //TODO: place in separate file
+  private $database;
   
   function __construct(){ //Connects to database
-    require_once($_SERVER['DOCUMENT_ROOT'].'/Molybdenum/backend/Configuration/Globals.php');
-    
+    require_once($_SERVER['DOCUMENT_ROOT'].'/MolybdenumWeb/backend/Configuration/Globals.php');
     try{
         $this->database = new PDO(
           'mysql:host='.DATABASE_HOST.
@@ -28,7 +23,7 @@ class Database{
     }
   }
 
-  function executeQuery($query,$arguments){ //executes secure query
+  public function executeQuery($query,$arguments){ //executes secure query
     require_once('SecureInput.php');
     
     $execution = $this->database->prepare($query);
@@ -51,7 +46,7 @@ class Database{
     return $execution->fetchAll();  
   }
   
-  function executePlainQuery($query){ //executes secure query
+  public function executePlainQuery($query){ //executes secure query
     require_once('SecureInput.php');
     
     $securedQuery = secureText($query);
