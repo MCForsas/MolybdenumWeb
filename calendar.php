@@ -2,23 +2,23 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<link href='../packages/core/main.css' rel='stylesheet' />
-<link href='../packages/daygrid/main.css' rel='stylesheet' />
-<script src='../packages/core/main.js'></script>
-<script src='../packages/interaction/main.js'></script>
-<script src='../packages/daygrid/main.js'></script>
+<?php //include($_SERVER['DOCUMENT_ROOT'].'/Molybdenum/res/bootstrap.inc.php');?>
+<link href='backend/calendar/packages/core/main.css' rel='stylesheet' />
+<link href='backend/calendar/packages/daygrid/main.css' rel='stylesheet' />
+<script src='backend/calendar/packages/core/main.js'></script>
+<script src='backend/calendar/packages/interaction/main.js'></script>
+<script src='backend/calendar/packages/daygrid/main.js'></script>
 <script>
-
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid' ],
-      defaultDate: '2019-04-12',
-      editable: true,
+      defaultDate: '<?php echo date("Y-m-d"); ?>',
+      editable: false, //TODO: change for editing
       eventLimit: true, // allow "more" link when too many events
       events: [
-        {
+        /*{
           title: 'All Day Event',
           start: '2019-04-01'
         },
@@ -71,11 +71,22 @@
           title: 'Click for Google',
           url: 'http://google.com/',
           start: '2019-04-28'
-        }
+        }*/
+        <?php echo "{title: 'my custom eventtio', start: '2019-05-28'}";?>
       ]
     });
 
     calendar.render();
+    
+    
+    dateClick: function(info) {
+        alert('Clicked on: ' + info.dateStr);
+        alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+        alert('Current view: ' + info.view.type);
+        // change the day's background color just for fun
+        info.dayEl.style.backgroundColor = 'red';
+    };
+    
   });
 
 </script>
