@@ -79,7 +79,7 @@
     calendar.render();
     
     
-    dateClick: function(info) {
+    var dateClick: function(info) {
         alert('Clicked on: ' + info.dateStr);
         alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
         alert('Current view: ' + info.view.type);
