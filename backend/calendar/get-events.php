@@ -14,8 +14,16 @@ require dirname(__FILE__) . '/utils.php';
 
 // Short-circuit if the client did not give us a date range.
 if (!isset($_GET['start']) || !isset($_GET['end'])) {
-  die("Please provide a date range.");
+  $_GET['start'] = date("Y-m-d");
+  $_GET['end'] = date("Y-m-d");
+  //die("Please provide a date range.");
+  
 }
+
+if(!isset($_POST['username'])){
+  die("Please provide an username");
+}
+
 
 // Parse the start/end parameters.
 // These are assumed to be ISO8601 strings with no time nor timeZone, like "2013-12-29".
@@ -29,11 +37,18 @@ if (isset($_GET['timeZone'])) {
   $timeZone = new DateTimeZone($_GET['timeZone']);
 }
 
-//
-//$input_arrays.
-//Get info from the db.
+//Get info from the database
+include($_SERVER['DOCUMENT_ROOT'].'/MolybdenumWeb/backend/Database/Database.class.php');
+$db = new Database();
+
+$input_arrays = $db->executePlainQuery("SELECT * FROM events");
+
+//print_r($input_arrays);
 
 
+// Read and parse our events JSON file into an array of event data arrays.
+// $json = file_get_contents(dirname(__FILE__) . '/events.json');
+// $input_arrays = json_decode($json, true);
 
 // Accumulate an output array of event data arrays.
 $output_arrays = array();
@@ -43,6 +58,7 @@ foreach ($input_arrays as $array) {
   $event = new Event($array, $timeZone);
 
   // If the event is in-bounds, add it to the output
+  
   if ($event->isWithinDayRange($range_start, $range_end)) {
     $output_arrays[] = $event->toArray();
   }
